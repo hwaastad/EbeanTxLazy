@@ -57,6 +57,7 @@ public class BusinessBeanJtaIT {
                 .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
                 .p("DS.LogSql", "false")
                 .p("DS.jtaManaged", "true")
+                .p("openejb.LogFactory","slf4j")
                 .build();
     }
 
