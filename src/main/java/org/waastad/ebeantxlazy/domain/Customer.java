@@ -7,6 +7,7 @@ package org.waastad.ebeantxlazy.domain;
 
 import org.waastad.ebeantxlazy.domain.finder.CustomerFinder;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Customer extends BaseModel {
 
     private String name;
 
-    @OneToMany(targetEntity = Person.class)
+    @OneToMany(targetEntity = Person.class,cascade = CascadeType.ALL)
     private List<Person> persons;
 
     public Customer(String name) {

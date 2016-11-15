@@ -6,6 +6,7 @@
 package org.waastad.ebeantxlazy.domain;
 
 import com.avaje.ebean.Model;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -16,5 +17,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseModel extends Model {
     @Id
-    private Long ID;
+    @Column(name = "ID")
+    private Long id;
 }

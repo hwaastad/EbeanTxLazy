@@ -29,5 +29,16 @@
                 <constraints foreignKeyName="fk_pet_person_id" referencedTableName="person" referencedColumnNames="id"/>
             </column>
         </createTable>
+        <createTable tableName="pet_groups">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="pet_id" type="bigint">
+                <constraints nullable="true" foreignKeyName="fk_pet_groups_pet_id" referencedTableName="pet" referencedColumnNames="id"/>
+            </column>
+            <column name="person_id" type="bigint">
+                <constraints nullable="true" foreignKeyName="fk_pet_groups_person_id" referencedTableName="person" referencedColumnNames="id"/>
+            </column>
+        </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -7,6 +7,7 @@ package org.waastad.ebeantxlazy.domain;
 
 import org.waastad.ebeantxlazy.domain.finder.PersonFinder;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,11 +25,14 @@ public class Person extends BaseModel {
 
     private String name;
 
-    @OneToMany(targetEntity = Pet.class)
+    @OneToMany(targetEntity = Pet.class,cascade = CascadeType.ALL)
     private List<Pet> pets;
 
     @ManyToOne(targetEntity = Customer.class)
     private Customer customer;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId", orphanRemoval = true)
+    private List<PetGroups> petGroups;
 
     public Person(String name) {
         this.name = name;

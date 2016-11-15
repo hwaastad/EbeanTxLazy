@@ -9,7 +9,6 @@ import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
 import com.avaje.ebean.config.ServerConfig;
 import com.avaje.ebean.config.dbplatform.HsqldbPlatform;
-import com.avaje.ebean.config.dbplatform.PostgresPlatform;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -48,6 +47,9 @@ public class EbeanInitializer {
         config.setRegister(true);
         config.setDefaultServer(true);
         config.addPackage(Customer.class.getPackage().getName());
+        
+//        config.setDdlGenerate(true);
+//        config.setDdlRun(true);
         this.ebeanServer = EbeanServerFactory.create(config);
     }
 
