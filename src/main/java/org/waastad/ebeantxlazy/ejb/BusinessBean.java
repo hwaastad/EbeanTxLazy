@@ -5,9 +5,11 @@
  */
 package org.waastad.ebeantxlazy.ejb;
 
+import com.avaje.ebean.Ebean;
 import java.util.List;
 import javax.ejb.Stateless;
 import org.waastad.ebeantxlazy.domain.Customer;
+import org.waastad.ebeantxlazy.domain.Person;
 
 /**
  *
@@ -18,5 +20,16 @@ public class BusinessBean {
 
     public List<Customer> findAll() {
         return Customer.find.all();
+    }
+
+    public void deleteUsers() {
+        Ebean.beginTransaction();
+        try {
+            List<Person> all = Person.find.all();
+            Ebean.deleteAll(all);
+            Ebean.commitTransaction();
+        } finally {
+            Ebean.endTransaction();
+        }
     }
 }

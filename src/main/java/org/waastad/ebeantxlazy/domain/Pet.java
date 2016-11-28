@@ -6,8 +6,11 @@
 package org.waastad.ebeantxlazy.domain;
 
 import org.waastad.ebeantxlazy.domain.finder.PetFinder;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Data;
 
 /**
@@ -20,9 +23,12 @@ public class Pet extends BaseModel {
 
   public static final PetFinder find = new PetFinder();
 
+
     private String name;
     @ManyToOne(targetEntity = Person.class)
     private Person person;
+    @OneToMany(targetEntity = PetAttribute.class,cascade = CascadeType.ALL)
+    private List<PetAttribute> pets;
 
     public Pet(String name) {
         this.name = name;

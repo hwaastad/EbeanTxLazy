@@ -56,6 +56,7 @@ public class BusinessBeanIT {
                 .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
                 .p("DS.LogSql", "false")
                 .p("DS.jtaManaged", "false")
+                .p("openejb.logfactory", "slf4j")
                 .build();
     }
 
@@ -76,5 +77,15 @@ public class BusinessBeanIT {
             });
         });
     }
+    
+    @Test
+    @DataSet(value = "changelog-data.xml")
+    public void testSomeMethod2() {
+        List<Customer> findAll = businessBean.findAll();
+        businessBean.deleteUsers();
+        
+        
+    }
+    
 
 }

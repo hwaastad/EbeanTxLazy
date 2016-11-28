@@ -21,6 +21,7 @@ public class Customer extends BaseModel {
 
   public static final CustomerFinder find = new CustomerFinder();
 
+
     private String name;
 
     @OneToMany(targetEntity = Person.class)
