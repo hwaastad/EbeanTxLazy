@@ -6,35 +6,52 @@
 package org.waastad.ebeantxlazy.domain;
 
 import org.waastad.ebeantxlazy.domain.finder.PersonGroupFinder;
-import java.util.List;
+import com.avaje.ebean.Model;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Data;
+import javax.persistence.Transient;
 
 /**
  *
  * @author helge
  */
 @Entity
-@Data
-@Table(name = "persongroup")
-public class PersonGroup extends BaseModel {
+@Table(name = "person_group")
+public class PersonGroup extends Model {
 
   public static final PersonGroupFinder find = new PersonGroupFinder();
 
-    private String name;
+    @EmbeddedId
+    private PersonGroupId pk;
 
-    @JoinTable(name = "person_persongroup", joinColumns = {
-        @JoinColumn(name = "person_group", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "person", referencedColumnName = "id")})
-    @ManyToMany()
-    private List<Person> persons;
+    @ManyToOne
+    @JoinColumn(name = "person", insertable = false, updatable = false)
+    private Person person;
 
-    public PersonGroup(String name) {
-        this.name = name;
+    @ManyToOne
+    @JoinColumn(name = "group", insertable = false, updatable = false)
+    private Group group;
+
+    @Transient
+    public Person getPerson() {
+        return person;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+        pk.setPerson(person.getId());
+    }
+
+    @Transient
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+        pk.setGroup(group.getId());
+    }   
 }

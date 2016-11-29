@@ -25,6 +25,8 @@ import org.waastad.dbunit.liquibase.rules.cdi.DataSet;
 import org.waastad.dbunit.liquibase.rules.cdi.DbInstance;
 import org.waastad.dbunit.liquibase.rules.rule.LiquibaseEnvironment;
 import org.waastad.ebeantxlazy.domain.Customer;
+import org.waastad.ebeantxlazy.domain.Person;
+import org.waastad.ebeantxlazy.domain.PersonGroup;
 
 /**
  *
@@ -54,7 +56,7 @@ public class BusinessBeanIT {
         return new PropertiesBuilder()
                 .p("DS", "new://Resource?type=DataSource")
                 .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
-                .p("DS.LogSql", "false")
+                .p("DS.LogSql", "true")
                 .p("DS.jtaManaged", "false")
                 .p("openejb.logfactory", "slf4j")
                 .build();
@@ -64,28 +66,27 @@ public class BusinessBeanIT {
     private BusinessBean businessBean;
 
     @Test
-    @DataSet(value = "changelog.xml")
+    @DataSet(value = "changelog-data.xml")
     public void testSomeMethod() {
-        List<Customer> findAll = businessBean.findAll();
-        findAll.forEach(cnsmr -> {
-            log.info("Customer: {}", cnsmr.getName());
-            cnsmr.getPersons().forEach(p -> {
-                log.info("Person: {}", p.getName());
-                p.getPets().forEach(pet -> {
-                    log.info("Pet: {}", pet.getName());
-                });
-            });
-        });
+//        List<Customer> findAll = businessBean.findAll();
+//        List<Person> all = Person.find.all();
+        List<PersonGroup> all = PersonGroup.find.all();
+//        findAll.forEach(cnsmr -> {
+//            log.info("Customer: {}", cnsmr.getName());
+//            cnsmr.getPersons().forEach(p -> {
+//                log.info("Person: {}", p.getName());
+//                p.getPets().forEach(pet -> {
+//                    log.info("Pet: {}", pet.getName());
+//                });
+//            });
+//        });
     }
-    
+
     @Test
     @DataSet(value = "changelog-data.xml")
     public void testSomeMethod2() {
-        List<Customer> findAll = businessBean.findAll();
-        businessBean.deleteUsers();
-        
-        
+        businessBean.deleteUsersStep("p-1");
+
     }
-    
 
 }

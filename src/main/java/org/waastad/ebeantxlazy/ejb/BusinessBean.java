@@ -10,6 +10,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import org.waastad.ebeantxlazy.domain.Customer;
 import org.waastad.ebeantxlazy.domain.Person;
+import org.waastad.ebeantxlazy.domain.PersonGroup;
+import org.waastad.ebeantxlazy.domain.Pet;
+import org.waastad.ebeantxlazy.domain.PetAttribute;
 
 /**
  *
@@ -28,6 +31,18 @@ public class BusinessBean {
             List<Person> all = Person.find.all();
             Ebean.deleteAll(all);
             Ebean.commitTransaction();
+        } finally {
+            Ebean.endTransaction();
+        }
+    }
+    
+    public void deleteUsersStep(String name) {
+        Ebean.beginTransaction();
+        try {
+            PetAttribute.find.deleteByName(name);
+            Pet.find.deleteByName(name);
+            PersonGroup.find.deleteByName(name);
+            Person.find.deleteByName(name);
         } finally {
             Ebean.endTransaction();
         }

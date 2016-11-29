@@ -39,15 +39,15 @@
                 <constraints foreignKeyName="fk_pet_attribute_pet_id" referencedTableName="pet" referencedColumnNames="id"/>
             </column>
         </createTable>
-        <createTable tableName="persongroup">
+        <createTable tableName="group">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
         </createTable>
-        <createTable tableName="person_persongroup">
-            <column name="person_group" type="bigint">
-                <constraints nullable="false" foreignKeyName="persongroup_fk" referencedTableName="persongroup" referencedColumnNames="id"/>
+        <createTable tableName="person_group">
+            <column name="group" type="bigint">
+                <constraints nullable="false" foreignKeyName="group_fk" referencedTableName="group" referencedColumnNames="id"/>
             </column>
             <column name="person" type="bigint">
                 <constraints nullable="false" foreignKeyName="person_fk" referencedTableName="person" referencedColumnNames="id"/>

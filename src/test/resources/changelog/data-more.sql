@@ -14,10 +14,10 @@ insert into pet (id,name,person_id) values
 (4,'pet-4',3),
 (5,'pet-5',3)
 
-insert into persongroup (id,name) values
+insert into group (id,name) values
 (1,'very important group')
 
-insert into person_persongroup(person_group,person) values
+insert into person_group(group,person) values
 (1,1),
 (1,2),
 (1,3)
