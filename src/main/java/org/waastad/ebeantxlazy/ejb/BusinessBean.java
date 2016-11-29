@@ -9,8 +9,10 @@ import com.avaje.ebean.Ebean;
 import java.util.List;
 import javax.ejb.Stateless;
 import org.waastad.ebeantxlazy.domain.Customer;
+import org.waastad.ebeantxlazy.domain.Group;
 import org.waastad.ebeantxlazy.domain.Person;
 import org.waastad.ebeantxlazy.domain.PersonGroup;
+import org.waastad.ebeantxlazy.domain.PersonGroupId;
 import org.waastad.ebeantxlazy.domain.Pet;
 import org.waastad.ebeantxlazy.domain.PetAttribute;
 
@@ -35,7 +37,7 @@ public class BusinessBean {
             Ebean.endTransaction();
         }
     }
-    
+
     public void deleteUsersStep(String name) {
         Ebean.beginTransaction();
         try {
@@ -43,6 +45,19 @@ public class BusinessBean {
             Pet.find.deleteByName(name);
             PersonGroup.find.deleteByName(name);
             Person.find.deleteByName(name);
+            Ebean.commitTransaction();
+        } finally {
+            Ebean.endTransaction();
+        }
+    }
+
+    public void addToGroup(String name, Long groupId) {
+        Ebean.beginTransaction();
+        try {
+            Person byyName = Person.find.byName(name);
+            Group byId = Group.find.byId(2L);
+            PersonGroup group = new PersonGroup(byyName, byId);
+            group.save();
             Ebean.commitTransaction();
         } finally {
             Ebean.endTransaction();

@@ -37,4 +37,8 @@ public class PersonFinder extends Finder<Long, Person> {
     public int deleteByName(String name) {
         return where().name.eq(name).delete();
     }
+
+    public Person byName(String name) {
+        return where().name.eq(name).findUnique();
+    }
 }

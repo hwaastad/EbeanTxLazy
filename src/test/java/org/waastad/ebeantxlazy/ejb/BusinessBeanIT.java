@@ -57,12 +57,12 @@ public class BusinessBeanIT {
     @Configuration
     public Properties configuration() {
         return new PropertiesBuilder()
-//                .p("DS", "new://Resource?type=DataSource")
-//                .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
                 .p("DS", "new://Resource?type=DataSource")
-                .p("DS.JdbcDriver","org.postgresql.Driver")
-                .p("DS.username","helge")
-                .p("DS.JdbcUrl", "jdbc:postgresql://localhost/whatever?stringtype=unspecified")
+                .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
+//                .p("DS", "new://Resource?type=DataSource")
+//                .p("DS.JdbcDriver","org.postgresql.Driver")
+//                .p("DS.username","helge")
+//                .p("DS.JdbcUrl", "jdbc:postgresql://localhost/whatever?stringtype=unspecified")
                 .p("DS.LogSql", "false")
                 .p("DS.jtaManaged", "false")
                 .p("openejb.logfactory", "slf4j")
@@ -95,6 +95,17 @@ public class BusinessBeanIT {
         }
         int sizeNew = PetAttribute.find.all().size();
         Assert.assertNotEquals(size,sizeNew);
+    }
+    
+    @Test
+    @DataSet(value = "changelog-data.xml")
+    public void testAddToGroup() {
+        try {
+            businessBean.addToGroup("p-1",2L);
+            businessBean.deleteUsersStep("p-1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

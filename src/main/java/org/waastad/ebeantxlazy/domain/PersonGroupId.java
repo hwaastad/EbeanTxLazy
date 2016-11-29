@@ -23,6 +23,11 @@ public class PersonGroupId implements Serializable {
     private Long aperson;
     private Long agroup;
 
+    public PersonGroupId(Long aperson, Long agroup) {
+        this.aperson = aperson;
+        this.agroup = agroup;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

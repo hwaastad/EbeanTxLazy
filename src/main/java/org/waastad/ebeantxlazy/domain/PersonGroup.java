@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 @Table(name = "t_person_group")
 public class PersonGroup extends Model {
 
-  public static final PersonGroupFinder find = new PersonGroupFinder();
+    public static final PersonGroupFinder find = new PersonGroupFinder();
 
     @EmbeddedId
     private PersonGroupId pk;
@@ -34,6 +34,12 @@ public class PersonGroup extends Model {
     @ManyToOne
     @JoinColumn(name = "agroup", insertable = false, updatable = false)
     private Group agroup;
+
+    public PersonGroup(Person aperson, Group agroup) {
+        this.pk = new PersonGroupId(aperson.getId(), agroup.getId());
+        this.aperson = aperson;
+        this.agroup = agroup;
+    }
 
     @Transient
     public Person getAperson() {
@@ -53,5 +59,14 @@ public class PersonGroup extends Model {
     public void setAgroup(Group agroup) {
         this.agroup = agroup;
         pk.setAgroup(agroup.getId());
-    }   
+    }
+
+    public PersonGroupId getPk() {
+        return pk;
+    }
+
+    public void setPk(PersonGroupId pk) {
+        this.pk = pk;
+    }
+
 }
