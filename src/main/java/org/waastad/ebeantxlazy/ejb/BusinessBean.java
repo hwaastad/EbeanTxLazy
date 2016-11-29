@@ -43,6 +43,7 @@ public class BusinessBean {
             Pet.find.deleteByName(name);
             PersonGroup.find.deleteByName(name);
             Person.find.deleteByName(name);
+            Ebean.commitTransaction();
         } finally {
             Ebean.endTransaction();
         }

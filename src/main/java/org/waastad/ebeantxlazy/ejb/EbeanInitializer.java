@@ -44,7 +44,7 @@ public class EbeanInitializer {
         config.setName("ebeanServer");
         config.setUseJtaTransactionManager(false);
         config.setAutoCommitMode(false);
-        config.setDatabasePlatform(new HsqldbPlatform());
+        config.setDatabasePlatform(new PostgresPlatform());
         config.setRegister(true);
         config.setDefaultServer(true);
         config.addPackage(Customer.class.getPackage().getName());

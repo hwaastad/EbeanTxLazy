@@ -35,6 +35,6 @@ public class PersonGroupFinder extends Finder<Long, PersonGroup> {
     }
 
     public int deleteByName(String name) {
-        return where().person.name.eq(name).delete();
+        return where().aperson.name.eq(name).delete();
     }
 }

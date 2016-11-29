@@ -19,7 +19,7 @@ import javax.persistence.Transient;
  * @author helge
  */
 @Entity
-@Table(name = "person_group")
+@Table(name = "t_person_group")
 public class PersonGroup extends Model {
 
   public static final PersonGroupFinder find = new PersonGroupFinder();
@@ -28,30 +28,30 @@ public class PersonGroup extends Model {
     private PersonGroupId pk;
 
     @ManyToOne
-    @JoinColumn(name = "person", insertable = false, updatable = false)
-    private Person person;
+    @JoinColumn(name = "aperson", insertable = false, updatable = false)
+    private Person aperson;
 
     @ManyToOne
-    @JoinColumn(name = "group", insertable = false, updatable = false)
-    private Group group;
+    @JoinColumn(name = "agroup", insertable = false, updatable = false)
+    private Group agroup;
 
     @Transient
-    public Person getPerson() {
-        return person;
+    public Person getAperson() {
+        return aperson;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
-        pk.setPerson(person.getId());
+    public void setAperson(Person aperson) {
+        this.aperson = aperson;
+        pk.setAperson(aperson.getId());
     }
 
     @Transient
-    public Group getGroup() {
-        return group;
+    public Group getAgroup() {
+        return agroup;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
-        pk.setGroup(group.getId());
+    public void setAgroup(Group agroup) {
+        this.agroup = agroup;
+        pk.setAgroup(agroup.getId());
     }   
 }

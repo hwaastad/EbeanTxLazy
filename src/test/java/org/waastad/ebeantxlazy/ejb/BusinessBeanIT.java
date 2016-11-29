@@ -5,6 +5,7 @@
  */
 package org.waastad.ebeantxlazy.ejb;
 
+import com.avaje.ebean.config.PersistBatch;
 import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import org.apache.openejb.testing.Classes;
 import org.apache.openejb.testing.Configuration;
 import org.apache.openejb.testing.Module;
 import org.apache.openejb.testng.PropertiesBuilder;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.RuleChain;
@@ -27,6 +29,7 @@ import org.waastad.dbunit.liquibase.rules.rule.LiquibaseEnvironment;
 import org.waastad.ebeantxlazy.domain.Customer;
 import org.waastad.ebeantxlazy.domain.Person;
 import org.waastad.ebeantxlazy.domain.PersonGroup;
+import org.waastad.ebeantxlazy.domain.PetAttribute;
 
 /**
  *
@@ -54,9 +57,13 @@ public class BusinessBeanIT {
     @Configuration
     public Properties configuration() {
         return new PropertiesBuilder()
+//                .p("DS", "new://Resource?type=DataSource")
+//                .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
                 .p("DS", "new://Resource?type=DataSource")
-                .p("DS.JdbcUrl", "jdbc:hsqldb:mem:test")
-                .p("DS.LogSql", "true")
+                .p("DS.JdbcDriver","org.postgresql.Driver")
+                .p("DS.username","helge")
+                .p("DS.JdbcUrl", "jdbc:postgresql://localhost/whatever?stringtype=unspecified")
+                .p("DS.LogSql", "false")
                 .p("DS.jtaManaged", "false")
                 .p("openejb.logfactory", "slf4j")
                 .build();
@@ -68,25 +75,26 @@ public class BusinessBeanIT {
     @Test
     @DataSet(value = "changelog-data.xml")
     public void testSomeMethod() {
-//        List<Customer> findAll = businessBean.findAll();
-//        List<Person> all = Person.find.all();
-        List<PersonGroup> all = PersonGroup.find.all();
-//        findAll.forEach(cnsmr -> {
-//            log.info("Customer: {}", cnsmr.getName());
-//            cnsmr.getPersons().forEach(p -> {
-//                log.info("Person: {}", p.getName());
-//                p.getPets().forEach(pet -> {
-//                    log.info("Pet: {}", pet.getName());
-//                });
-//            });
-//        });
+        try {
+            List<PersonGroup> all = PersonGroup.find.all();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     @DataSet(value = "changelog-data.xml")
     public void testSomeMethod2() {
-        businessBean.deleteUsersStep("p-1");
-
+        int size = PetAttribute.find.all().size();
+        List<Person> all = Person.find.all();
+        try {
+            businessBean.deleteUsersStep("p-1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int sizeNew = PetAttribute.find.all().size();
+        Assert.assertNotEquals(size,sizeNew);
     }
 
 }

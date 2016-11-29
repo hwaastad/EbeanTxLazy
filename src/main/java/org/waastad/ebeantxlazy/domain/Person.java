@@ -9,10 +9,9 @@ import org.waastad.ebeantxlazy.domain.finder.PersonFinder;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Data;
 
 /**
@@ -21,6 +20,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@Table(name = "t_person")
 public class Person extends BaseModel {
 
     public static final PersonFinder find = new PersonFinder();
@@ -32,7 +32,7 @@ public class Person extends BaseModel {
 
 //    @ManyToMany(mappedBy = "persons",cascade = CascadeType.REMOVE)
 //    private List<Group> personGroups;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "aperson")
     public List<PersonGroup> personGroups;
 
     @ManyToOne(targetEntity = Customer.class)

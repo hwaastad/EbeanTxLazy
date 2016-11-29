@@ -5,11 +5,9 @@
  */
 package org.waastad.ebeantxlazy.domain;
 
-import com.avaje.ebean.Model;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -22,8 +20,8 @@ public class PersonGroupId implements Serializable {
 
     private static final long serialVersionUID = -4918927027060937324L;
 
-    private Long person;
-    private Long group;
+    private Long aperson;
+    private Long agroup;
 
     @Override
     public boolean equals(Object obj) {
@@ -34,14 +32,14 @@ public class PersonGroupId implements Serializable {
         if (b == null) {
             return false;
         }
-        return Objects.equals(b.person, person) && Objects.equals(b.group, group);
+        return Objects.equals(b.aperson, aperson) && Objects.equals(b.agroup, agroup);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.person);
-        hash = 59 * hash + Objects.hashCode(this.group);
+        hash = 59 * hash + Objects.hashCode(this.aperson);
+        hash = 59 * hash + Objects.hashCode(this.agroup);
         return hash;
     }
 }

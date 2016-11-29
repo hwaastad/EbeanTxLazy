@@ -19,7 +19,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "group")
+@Table(name = "t_group")
 public class Group extends BaseModel {
 
     public static final GroupFinder find = new GroupFinder();
@@ -33,7 +33,7 @@ public class Group extends BaseModel {
 //    private List<Person> persons;
 //    @OneToMany
 //    private List<PersonGroup> personGroups;
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "agroup")
     public List<PersonGroup> personGroups;
 
     public Group(String name) {

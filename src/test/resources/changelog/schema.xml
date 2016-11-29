@@ -5,52 +5,52 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet id="1" author="asd">
-        <createTable tableName="customer">
+        <createTable tableName="t_customer">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
         </createTable>
-        <createTable tableName="person">
+        <createTable tableName="t_person">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
             <column name="customer_id" type="bigint">
-                <constraints foreignKeyName="fk_person_customer_id" referencedTableName="customer" referencedColumnNames="id"/>
+                <constraints foreignKeyName="fk_person_customer_id" referencedTableName="t_customer" referencedColumnNames="id"/>
             </column>
         </createTable>
-        <createTable tableName="pet">
+        <createTable tableName="t_pet">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
             <column name="person_id" type="bigint">
-                <constraints foreignKeyName="fk_pet_person_id" referencedTableName="person" referencedColumnNames="id"/>
+                <constraints foreignKeyName="fk_pet_person_id" referencedTableName="t_person" referencedColumnNames="id"/>
             </column>
         </createTable>
-        <createTable tableName="pet_attribute">
+        <createTable tableName="t_pet_attribute">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
             <column name="value" type="varchar(64)"/>
             <column name="pet_id" type="bigint">
-                <constraints foreignKeyName="fk_pet_attribute_pet_id" referencedTableName="pet" referencedColumnNames="id"/>
+                <constraints foreignKeyName="fk_pet_attribute_pet_id" referencedTableName="t_pet" referencedColumnNames="id"/>
             </column>
         </createTable>
-        <createTable tableName="group">
+        <createTable tableName="t_group">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
         </createTable>
-        <createTable tableName="person_group">
-            <column name="group" type="bigint">
-                <constraints nullable="false" foreignKeyName="group_fk" referencedTableName="group" referencedColumnNames="id"/>
+        <createTable tableName="t_person_group">
+            <column name="agroup" type="bigint">
+                <constraints nullable="false" foreignKeyName="group_fk" referencedTableName="t_group" referencedColumnNames="id"/>
             </column>
-            <column name="person" type="bigint">
-                <constraints nullable="false" foreignKeyName="person_fk" referencedTableName="person" referencedColumnNames="id"/>
+            <column name="aperson" type="bigint">
+                <constraints nullable="false" foreignKeyName="person_fk" referencedTableName="t_person" referencedColumnNames="id"/>
             </column>          
         </createTable>
     </changeSet>

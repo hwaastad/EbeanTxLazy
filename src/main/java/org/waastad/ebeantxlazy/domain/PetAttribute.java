@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "pet_attribute")
+@Table(name = "t_pet_attribute")
 public class PetAttribute extends BaseModel {
 
   public static final PetAttributeFinder find = new PetAttributeFinder();
